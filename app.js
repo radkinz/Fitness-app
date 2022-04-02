@@ -93,10 +93,7 @@ const muscle_ids = {
   Soleus: 15
 }
 
-function displayinfo(exercises) {
-  //clear html
-  $('#workouts').html(' ');
-
+function displayinfo (exercises) {
   //fill workouts
   for (let i = 0; i < exercises.length; i++) {
     $('#workouts').append('<li>' + exercises[i] + '</li>')
@@ -105,6 +102,9 @@ function displayinfo(exercises) {
 }
 
 function logSubmit (event) {
+  //clear html
+  $('#workouts').html(' ')
+
   //grab sport user searched
   let sport = $('#sport')
     .val()
@@ -114,7 +114,7 @@ function logSubmit (event) {
   let muscles = sport_muscles[sport]
   //get exercise list
   getExerciseList(muscles)
-  
+
   event.preventDefault()
 }
 
@@ -123,6 +123,8 @@ function getExerciseList (muscles) {
   for (let i = 0; i < muscles.length; i++) {
     //get the id for the muscle group to search in api
     let muscle_id = muscle_ids[muscles[i]]
+    let exercises = []
+    console.log(muscle_id)
     //search for workouts of specific muscle group based on api
     $.get(
       `https://wger.de/api/v2/exercise/?language=2&muscles=${muscle_id}`,
@@ -135,20 +137,20 @@ function getExerciseList (muscles) {
           }
         }
 
-        if (i == muscles.length-1) {
-          handleExercises(10, exercises);
-        }
+        handleExercises(1, exercises)
       }
     )
   }
 }
 
-function handleExercises(maximum, exercises) {
-  let shuffled = exercises.sort(() => 0.5 - Math.random());
-  let selected = shuffled.slice(0, maximum);
+function handleExercises (maximum, exercises) {
+  console.log(exercises, 'hello')
 
-  console.log(selected);
-  displayinfo(selected);
+  let shuffled = exercises.sort(() => 0.5 - Math.random())
+  let selected = shuffled.slice(0, maximum)
+
+  console.log(selected, 'yo')
+  displayinfo(selected)
 }
 
 const form = document.getElementById('form')
