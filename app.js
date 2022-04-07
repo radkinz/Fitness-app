@@ -93,6 +93,37 @@ const muscle_ids = {
   Soleus: 15
 }
 
+const muscle_groups = {
+  upper_body: [
+    'Biceps brachii',
+    'Anterior deltoid',
+    'Serratus anterior',
+    'Pectoralis major',
+    'Triceps brachii',
+    'Trapezius',
+    'Biceps femoris',
+    'Latissimus dorsi',
+    'Brachialis'
+  ],
+  lower_body: [
+    'Gastrocnemius',
+    'Gluteus maximus',
+    'Quadriceps femoris',
+    'Soleus'
+  ],
+  core: ['Rectus abdominis', 'Obliquus externus abdominis']
+}
+
+const equipment_id = {
+  bodyweight: 7,
+  dumbbell: 3,
+  gym_access: 0
+}
+
+//GLOBAL VARIABLES
+let equipment = equipment_id['bodyweight']
+let muscle_bias = 'core'
+
 function displayinfo (exercises) {
   //fill workouts
   for (let i = 0; i < exercises.length; i++) {
@@ -112,35 +143,82 @@ function logSubmit (event) {
   console.log(sport)
   //grab muscle group based on sport
   let muscles = sport_muscles[sport]
-  //get exercise list
-  getExerciseList(muscles)
+
+  //organize muscle list and send to create workpout plan
+  organizeMuscleList(muscles, muscle_bias, equipment)
 
   event.preventDefault()
 }
 
-function getExerciseList (muscles) {
-  let exercises = []
-  for (let i = 0; i < muscles.length; i++) {
-    //get the id for the muscle group to search in api
-    let muscle_id = muscle_ids[muscles[i]]
-    let exercises = []
-    console.log(muscle_id)
-    //search for workouts of specific muscle group based on api
-    $.get(
-      `https://wger.de/api/v2/exercise/?language=2&muscles=${muscle_id}`,
-      function (data) {
-        for (let j = 0; j < data.results.length; j++) {
-          //check if exercise is already added
-          if (!exercises.includes(data.results[j].name)) {
-            //if not included then add to exercise list
-            exercises.push(data.results[j].name)
-          }
-        }
-
-        handleExercises(1, exercises)
+function organizeMuscleList (muscle_list, muscle_bias) {
+  console.log(muscle_list)
+  //add muscle bias
+  if (muscle_bias == 'core') {
+    let muscle_options = muscle_groups['core']
+    for (let i = 0; i < 2; i++) {
+      console.log(muscle_options, muscle_options.length)
+      for (let j = 0; j < muscle_options.length; j++) {
+        muscle_list.push(muscle_options[j])
       }
-    )
+    }
+  } else if (muscle_bias == 'upper body') {
+    let muscle_options = muscle_groups['upper_body']
+    for (let j = 0; j < muscle_options.length; j++) {
+      muscle_list.push(muscle_options[j])
+    }
+  } else if (muscle_bias == 'lower body') {
+    for (let i = 0; i < 2; i++) {
+      let muscle_options = muscle_groups['lower_body']
+      for (let j = 0; j < muscle_options.length; j++) {
+        muscle_list.push(muscle_options[j])
+      }
+    }
   }
+
+  //filter muscle list
+  console.log('hello')
+  let new_muscles = []
+  for (let i = 0; i < 10; i++) {
+    let index = Math.floor(Math.random() * muscle_list.length)
+    let new_muscle = muscle_list[index]
+
+    //add to list
+    new_muscles.push(new_muscle)
+  }
+
+  console.log(new_muscles)
+  getExerciseList(new_muscles, equipment)
+}
+
+function getExerciseList (muscles, equipment) {
+  console.log(muscles)
+  //create muscle id search query
+  let query = ''
+  for (let i = 0; i < muscles.length; i++) {
+    if (i == muscles.length - 1) {
+      query += muscle_ids[muscles[i]]
+    } else {
+      query += muscle_ids[muscles[i]] + ','
+    }
+  }
+
+  let exercises = []
+  console.log(query)
+  //search for workouts of specific muscle group based on api
+  $.get(
+    `https://wger.de/api/v2/exercise/?language=2&muscles=${query}&equipment=${equipment}`,
+    function (data) {
+      for (let j = 0; j < data.results.length; j++) {
+        //check if exercise is already added
+        if (!exercises.includes(data.results[j].name)) {
+          //if not included then add to exercise list
+          exercises.push(data.results[j].name)
+        }
+      }
+
+      handleExercises(10, exercises)
+    }
+  )
 }
 
 function handleExercises (maximum, exercises) {
