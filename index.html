@@ -14,8 +14,8 @@
     <h1>Iron Sports</h1>
     <form id="form">
       <label for="sport">What sport do you play:</label>
-      <select id="sport" name="sport" >
-        <option value="Select a sport">Select a sport</option>
+      <select id="sport" name="sport" required>
+        <option value="">Select a sport</option>
         <option value="Basketball">Basketball</option>
         <option value="Baseball">Baseball</option>
         <option value="Football">Football</option>
@@ -24,6 +24,37 @@
         <option value="Swimming">Swimming</option>
         <option value="Volleyball">Volleyball</option>
       </select>
+      <br />
+      <br />
+      <label for="length">Please choose a timeframe:</label>
+      <select id="length" name="length" required>
+        <option value="">Select an option</option>
+        <option value="30_minutes">30 minutes</option>
+        <option value="45_minutes">45 minutes</option>
+        <option value="1_hour">1 hour</option>
+        <option value="1_hour_and_30_minutes">1 hour and 30 minutes</option>
+        <option value="2_hours">2 hours</option>
+      </select>
+      <br />
+      <br />
+      <label for="resources">What resources are availible:</label>
+      <select id="resources" name="resources" required>
+        <option value="">Select an option</option>
+        <option value="gym_access">complete gym acess</option>
+        <option value="dumbbell">dumbbell only</option>
+        <option value="bodyweight">bodyweight only</option>
+      </select>
+      <br />
+      <br />
+      <label for="muscle">Choose a muscle group to focus on:</label>
+      <select id="muscle" name="muscle" required>
+        <option value="">Select an option</option>
+        <option value="upper body">upper body</option>
+        <option value="lower body">lower body</option>
+        <option value="core">core</option>
+      </select>
+      <br />
+      <br />
       <input type="submit" value="Submit" />
     </form>
     <div id="workouts"></div>
