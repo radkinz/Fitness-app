@@ -120,9 +120,13 @@ const equipment_id = {
   gym_access: 0
 }
 
-//GLOBAL VARIABLES
-let equipment = equipment_id['bodyweight']
-let muscle_bias = 'core'
+const exercise_packages = {
+  '30_minutes': 5,
+  '45_minutes': 7,
+  '1_hour': 10,
+  '1_hour_and_30_minutes': 15,
+  '2_hours': 20
+}
 
 function displayinfo (exercises) {
   //fill workouts
@@ -141,16 +145,34 @@ function logSubmit (event) {
     .val()
     .toLowerCase()
   console.log(sport)
+
+  //grab user's equipment resources
+  let equipment = $('#resources')
+    .val()
+    .toLowerCase()
+  equipment = equipment_id[equipment]
+  console.log(equipment)
+
+  //grab user's muscle bias
+  let muscle_bias = $('#muscle')
+    .val()
+    .toLowerCase()
+
+  //grab timeframe
+  let time = $('#length')
+    .val()
+    .toLowerCase()
+
   //grab muscle group based on sport
   let muscles = sport_muscles[sport]
 
   //organize muscle list and send to create workpout plan
-  organizeMuscleList(muscles, muscle_bias, equipment)
+  organizeMuscleList(muscles, muscle_bias, equipment, time)
 
   event.preventDefault()
 }
 
-function organizeMuscleList (muscle_list, muscle_bias) {
+function organizeMuscleList (muscle_list, muscle_bias, equipment, time) {
   console.log(muscle_list)
   //add muscle bias
   if (muscle_bias == 'core') {
@@ -176,7 +198,6 @@ function organizeMuscleList (muscle_list, muscle_bias) {
   }
 
   //filter muscle list
-  console.log('hello')
   let new_muscles = []
   for (let i = 0; i < 10; i++) {
     let index = Math.floor(Math.random() * muscle_list.length)
@@ -187,11 +208,10 @@ function organizeMuscleList (muscle_list, muscle_bias) {
   }
 
   console.log(new_muscles)
-  getExerciseList(new_muscles, equipment)
+  getExerciseList(new_muscles, equipment, time)
 }
 
-function getExerciseList (muscles, equipment) {
-  console.log(muscles)
+function getExerciseList (muscles, equipment, time) {
   //create muscle id search query
   let query = ''
   for (let i = 0; i < muscles.length; i++) {
@@ -203,7 +223,6 @@ function getExerciseList (muscles, equipment) {
   }
 
   let exercises = []
-  console.log(query)
   //search for workouts of specific muscle group based on api
   $.get(
     `https://wger.de/api/v2/exercise/?language=2&muscles=${query}&equipment=${equipment}`,
@@ -215,19 +234,18 @@ function getExerciseList (muscles, equipment) {
           exercises.push(data.results[j].name)
         }
       }
-
-      handleExercises(10, exercises)
+      console.log(exercise_packages[time], time, 'time')
+      handleExercises(exercise_packages[time], exercises)
     }
   )
 }
 
 function handleExercises (maximum, exercises) {
-  console.log(exercises, 'hello')
+  console.log(maximum, 'hello')
 
   let shuffled = exercises.sort(() => 0.5 - Math.random())
   let selected = shuffled.slice(0, maximum)
 
-  console.log(selected, 'yo')
   displayinfo(selected)
 }
 
