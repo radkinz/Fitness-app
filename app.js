@@ -129,11 +129,24 @@ const exercise_packages = {
 }
 
 function displayinfo (exercises) {
+  //clear workouts
+  $('#workouts').html('')
+  //add title
+  $('#workouts').append('<h2>Your Plan</h2>')
+  //add discription
+  $('#workouts').append('<p>For most exercises, complete anywhere between 8-12 reps for 3 sets. If the exercise is time focused (ex. plank or hollow hold), then try to hold anywhere between 30 seconds to 2 minutes. </p>')
   //fill workouts
+  $('#workouts').append('<div>')
   for (let i = 0; i < exercises.length; i++) {
     $('#workouts').append('<li>' + exercises[i] + '</li>')
     console.log(exercises[i])
   }
+  $('#workouts').append('</div>')
+
+  //scroll to bottom
+  $("body, html").animate({
+    scrollTop: $(document).height()
+}, 1200)
 }
 
 function logSubmit (event) {
