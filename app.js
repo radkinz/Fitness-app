@@ -139,7 +139,6 @@ function displayinfo (exercises) {
   $('#workouts').append('<div>')
   for (let i = 0; i < exercises.length; i++) {
     $('#workouts').append('<li>' + exercises[i] + '</li>')
-    console.log(exercises[i])
   }
   $('#workouts').append('</div>')
 
@@ -157,14 +156,12 @@ function logSubmit (event) {
   let sport = $('#sport')
     .val()
     .toLowerCase()
-  console.log(sport)
 
   //grab user's equipment resources
   let equipment = $('#resources')
     .val()
     .toLowerCase()
   equipment = equipment_id[equipment]
-  console.log(equipment)
 
   //grab user's muscle bias
   let muscle_bias = $('#muscle')
@@ -186,12 +183,10 @@ function logSubmit (event) {
 }
 
 function organizeMuscleList (muscle_list, muscle_bias, equipment, time) {
-  console.log(muscle_list)
   //add muscle bias
   if (muscle_bias == 'core') {
     let muscle_options = muscle_groups['core']
     for (let i = 0; i < 2; i++) {
-      console.log(muscle_options, muscle_options.length)
       for (let j = 0; j < muscle_options.length; j++) {
         muscle_list.push(muscle_options[j])
       }
@@ -220,25 +215,35 @@ function organizeMuscleList (muscle_list, muscle_bias, equipment, time) {
     new_muscles.push(new_muscle)
   }
 
-  console.log(new_muscles)
   getExerciseList(new_muscles, equipment, time)
 }
 
 function getExerciseList (muscles, equipment, time) {
+  //create query string
+  let query = 'https://wger.de/api/v2/exercise/?language=2&muscles='
+
   //create muscle id search query
-  let query = ''
+  let musclequery = ''
   for (let i = 0; i < muscles.length; i++) {
     if (i == muscles.length - 1) {
-      query += muscle_ids[muscles[i]]
+      musclequery += muscle_ids[muscles[i]]
     } else {
-      query += muscle_ids[muscles[i]] + ','
+      musclequery += muscle_ids[muscles[i]] + ','
     }
+  }
+
+  //add muscle ids to query
+  query += musclequery
+
+  //add equipment query if necessary
+  if (equipment !== 0) {
+    query += '&equipment=' + equipment
   }
 
   let exercises = []
   //search for workouts of specific muscle group based on api
   $.get(
-    `https://wger.de/api/v2/exercise/?language=2&muscles=${query}&equipment=${equipment}`,
+    query,
     function (data) {
       for (let j = 0; j < data.results.length; j++) {
         //check if exercise is already added
@@ -247,15 +252,12 @@ function getExerciseList (muscles, equipment, time) {
           exercises.push(data.results[j].name)
         }
       }
-      console.log(exercise_packages[time], time, 'time')
       handleExercises(exercise_packages[time], exercises)
     }
   )
 }
 
 function handleExercises (maximum, exercises) {
-  console.log(maximum, 'hello')
-
   let shuffled = exercises.sort(() => 0.5 - Math.random())
   let selected = shuffled.slice(0, maximum)
 
