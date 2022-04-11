@@ -24,8 +24,28 @@ html {
     margin: 15px;
 }
 
-select, input {
+label {
+    font-size: xx-large;
+}
+
+input {
+    font-size: xx-large;
+    font-weight: 600;
+    padding-top: 10px;    
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: -10px;
+}
+
+select {
     font-size: large;
+}
+
+#submitcontainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 #rectangle {
