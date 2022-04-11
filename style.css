@@ -3,6 +3,7 @@
 * {
     margin: 0;
     font-family: 'Barlow Condensed', sans-serif;
+    overflow: auto;
 }
 
 html {
@@ -60,4 +61,21 @@ select {
     background-color: orangered;
     margin-left: 10px;
     margin-right: 10px;
+}
+
+#workouts h2 {
+    font-size: xxx-large;
+}
+
+#workouts {
+    text-align: center;
+    font-size: x-large;
+}
+
+#workouts {
+    padding: 20px;
+}
+
+#workouts div {
+    margin-top: 10px;
 }
