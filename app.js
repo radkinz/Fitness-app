@@ -128,30 +128,52 @@ const exercise_packages = {
   '2_hours': 20
 }
 
+//motivational quote api
+let quote
+$.get('https://type.fit/api/quotes', function (response) {
+  response = JSON.parse(response)
+  quote = response[Math.floor(Math.random() * response.length)].text
+  console.log(quote)
+
+  $('#quote').html('')
+  $('#quote').append('"' + quote + '"');
+})
+
+$('#button').click(function () {
+  $.get('https://type.fit/api/quotes', function (response) {
+    response = JSON.parse(response)
+    quote = response[Math.floor(Math.random() * response.length)].text
+    console.log(quote)
+
+    $('#quote').html('')
+    $('#quote').append('"' + quote + '"');
+  })
+})
+
 function displayinfo (exercises) {
   //clear workouts
-  $('#workouts').html('')
-  //add title
-  $('#workouts').append('<h2>Your Plan</h2>')
+  $('#plan').html('')
   //add discription
-  $('#workouts').append('<p>For most exercises, complete anywhere between 8-12 reps for 3 sets. If the exercise is time focused (ex. plank or hollow hold), then try to hold anywhere between 30 seconds to 2 minutes. </p>')
+  $('#plan').append(
+    '<p>For most exercises, complete anywhere between 8-12 reps for 3 sets. If the exercise is time focused (ex. plank or hollow hold), then try to hold anywhere between 30 seconds to 2 minutes. </p>'
+  )
   //fill workouts
-  $('#workouts').append('<div>')
+  $('#plan').append('<div>')
   for (let i = 0; i < exercises.length; i++) {
-    $('#workouts').append('<li>' + exercises[i] + '</li>')
+    $('#plan').append('<li>' + exercises[i] + '</li>')
   }
-  $('#workouts').append('</div>')
+  $('#plan').append('</div>')
 
   //scroll to bottom
-  $("body, html").animate({
-    scrollTop: $(document).height()
-}, 1200)
+  $('body, html').animate(
+    {
+      scrollTop: $(document).height()
+    },
+    1200
+  )
 }
 
 function logSubmit (event) {
-  //clear html
-  $('#workouts').html(' ')
-
   //grab sport user searched
   let sport = $('#sport')
     .val()
@@ -242,19 +264,16 @@ function getExerciseList (muscles, equipment, time) {
 
   let exercises = []
   //search for workouts of specific muscle group based on api
-  $.get(
-    query,
-    function (data) {
-      for (let j = 0; j < data.results.length; j++) {
-        //check if exercise is already added
-        if (!exercises.includes(data.results[j].name)) {
-          //if not included then add to exercise list
-          exercises.push(data.results[j].name)
-        }
+  $.get(query, function (data) {
+    for (let j = 0; j < data.results.length; j++) {
+      //check if exercise is already added
+      if (!exercises.includes(data.results[j].name)) {
+        //if not included then add to exercise list
+        exercises.push(data.results[j].name)
       }
-      handleExercises(exercise_packages[time], exercises)
     }
-  )
+    handleExercises(exercise_packages[time], exercises)
+  })
 }
 
 function handleExercises (maximum, exercises) {
