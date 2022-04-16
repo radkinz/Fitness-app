@@ -150,6 +150,27 @@ $('#button').click(function () {
   })
 })
 
+$("#headerOptions2").click(function() {
+  //scroll to bottom
+  $('body, html').animate(
+    {
+      scrollTop: $('#Motivation').height()
+    },
+    1200
+  )
+});
+
+$("#headerOptions1").click(function() {
+  //scroll to bottom
+  $('body, html').animate(
+    {
+      scrollTop: $(document).height()
+    },
+    1200
+  )
+});
+
+
 function displayinfo (exercises) {
   //clear workouts
   $('#plan').html('')
