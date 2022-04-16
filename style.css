@@ -48,7 +48,7 @@ img {
 }
 
 #planBuilderContainer {
-  background-image: url('/images/weights.jpg'),
+  background-image: url('https://radkinz.me/Fitness-app/images/weights.jpg'),
     linear-gradient(rgba(255, 177, 31, 0.596), rgba(255, 177, 31, 0.486));
   background-blend-mode: overlay;
   background-position: center; /* Center the image */
