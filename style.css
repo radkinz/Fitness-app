@@ -38,13 +38,17 @@ html {
     background-color: orangered;
 }
 
-#headerOptions {
+#headerOptions1, #headerOptions2 {
     color: black;
     font-size: x-large;
     margin-top: 0px;
     text-align: center;
     padding: 5px;
     overflow: hidden;
+}
+
+#headerOptions1:hover, #headerOptions2:hover, input:hover, select:hover {
+    cursor: pointer;
 }
 
 #headerContainer {
