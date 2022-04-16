@@ -180,17 +180,22 @@ function displayinfo (exercises) {
   )
   //fill workouts
   $('#plan').append('<div>')
+  console.log(exercises.length)
   for (let i = 0; i < exercises.length; i++) {
 
     $.get(
       `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&key=AIzaSyA2-thhZ2MhlR5qIp8D1VerHqEty4k8q0I&type=video&q=${exercises[i]}`,
       function (data) {
+        console.log(data)
         data.items.forEach(item => {
           console.log(item)
           $('#plan').append(`<li><a href="https://www.youtube.com/watch?v=${item.id.videoId}" target="_blank">${exercises[i]}</a></li>`)
         })
       }
-    )
+    ).fail(function() {
+      //Error logic
+      $('#plan').append(`<li>${exercises[i]}</li>`)
+    })
   }
   $('#plan').append('</div>')
   
@@ -202,21 +207,6 @@ function displayinfo (exercises) {
     1200
   )
 }
-
-//grab youtube api video
-function videoSearch (search) {
-  $.get(
-    `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&key=AIzaSyA2-thhZ2MhlR5qIp8D1VerHqEty4k8q0I&type=video&q=${search}`,
-    function (data) {
-      data.items.forEach(item => {
-        console.log(item)
-
-        return item.id.videoId;
-      })
-    }
-  )
-}
-
 
 function logSubmit (event) {
   //grab sport user searched
