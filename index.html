@@ -12,9 +12,12 @@
   </head>
   <body>
     <div id="title">
-      <div id="orangerectangle"></div>
-      <h1>Iron Sport</h1>
-      <div id="orangerectangle"></div>
+      <img src="/images/logo.png" />
+      <div id="titleContainer">
+        <div id="orangerectangle"></div>
+        <h1>Iron Sport</h1>
+        <div id="orangerectangle"></div>
+      </div>
     </div>
     <div id="rectangle">
       <div id="headerContainer2">
@@ -28,54 +31,60 @@
         </div>
       </div>
     </div>
-    <div id="planBuilder">
-      <form id="form">
-        <label for="sport">What sport do you play:</label>
-        <select id="sport" name="sport" required>
-          <option value="">Select a sport</option>
-          <option value="Basketball">Basketball</option>
-          <option value="Baseball">Baseball</option>
-          <option value="Football">Football</option>
-          <option value="Lacrosse">Lacrosse</option>
-          <option value="Running">Running</option>
-          <option value="Swimming">Swimming</option>
-          <option value="Volleyball">Volleyball</option>
-        </select>
-        <br />
-        <br />
-        <label for="length">Choose a workout length:</label>
-        <select id="length" name="length" required>
-          <option value="">Select an option</option>
-          <option value="30_minutes">30 minutes</option>
-          <option value="45_minutes">45 minutes</option>
-          <option value="1_hour">1 hour</option>
-          <option value="1_hour_and_30_minutes">1 hour and 30 minutes</option>
-          <option value="2_hours">2 hours</option>
-        </select>
-        <br />
-        <br />
-        <label for="resources">What resources are available:</label>
-        <select id="resources" name="resources" required>
-          <option value="">Select an option</option>
-          <option value="gym_access">complete gym acess</option>
-          <option value="dumbbell">dumbbell only</option>
-          <option value="bodyweight">bodyweight only</option>
-        </select>
-        <br />
-        <br />
-        <label for="muscle">Choose a muscle group to focus on:</label>
-        <select id="muscle" name="muscle" required>
-          <option value="">Select an option</option>
-          <option value="upper body">upper body</option>
-          <option value="lower body">lower body</option>
-          <option value="core">core</option>
-        </select>
-        <br />
-        <br />
-        <div id="submitcontainer">
-          <input type="submit" value="Access My Plan" />
+    <div id="planBuilderContainer2">
+      <div id="planBuilderContainer">
+        <div id="planBuilder">
+          <form id="form">
+            <label for="sport">What sport do you play:</label>
+            <select id="sport" name="sport" required>
+              <option value="">Select a sport</option>
+              <option value="Basketball">Basketball</option>
+              <option value="Baseball">Baseball</option>
+              <option value="Football">Football</option>
+              <option value="Lacrosse">Lacrosse</option>
+              <option value="Running">Running</option>
+              <option value="Swimming">Swimming</option>
+              <option value="Volleyball">Volleyball</option>
+            </select>
+            <br />
+            <br />
+            <label for="length">Choose a workout length:</label>
+            <select id="length" name="length" required>
+              <option value="">Select an option</option>
+              <option value="30_minutes">30 minutes</option>
+              <option value="45_minutes">45 minutes</option>
+              <option value="1_hour">1 hour</option>
+              <option value="1_hour_and_30_minutes"
+                >1 hour and 30 minutes</option
+              >
+              <option value="2_hours">2 hours</option>
+            </select>
+            <br />
+            <br />
+            <label for="resources">What resources are available:</label>
+            <select id="resources" name="resources" required>
+              <option value="">Select an option</option>
+              <option value="gym_access">complete gym acess</option>
+              <option value="dumbbell">dumbbell only</option>
+              <option value="bodyweight">bodyweight only</option>
+            </select>
+            <br />
+            <br />
+            <label for="muscle">Choose a muscle group to focus on:</label>
+            <select id="muscle" name="muscle" required>
+              <option value="">Select an option</option>
+              <option value="upper body">upper body</option>
+              <option value="lower body">lower body</option>
+              <option value="core">core</option>
+            </select>
+            <br />
+            <br />
+            <div id="submitcontainer">
+              <input type="submit" value="Access My Plan" />
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
     <div id="Littlerectangle"></div>
     <div id="Motivation">
@@ -90,7 +99,9 @@
     <div id="Littlerectangle"></div>
     <div id="workouts">
       <h2>Your Plan</h2>
-      <div id="plan">Submit the questionare above to access your workout plan.</div>
+      <div id="plan">
+        Submit the questionare above to access your workout plan.
+      </div>
     </div>
     <script src="app.js"></script>
   </body>

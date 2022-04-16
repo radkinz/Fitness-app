@@ -21,15 +21,41 @@ html {
     text-align: center;
     padding: 15px;
     font-size: xx-large;
-    display: flex;
-    justify-content: center;
     box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     z-index: 10;
+}
+
+#titleContainer {
+    display: flex;
+    justify-content: center;
+}
+
+img {
+    height: 70px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 15px;
+    margin-left: 15px;
 }
 
 #planBuilder {
     font-size: x-large;
     margin: 15px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    overflow: hidden;
+    text-shadow: 2px 2px #000000;
+}
+
+#planBuilderContainer {
+    background-image: url("/images/weights.jpg"), linear-gradient(rgba(255, 177, 31, 0.596),rgba(255, 177, 31, 0.486));
+    background-blend-mode: overlay;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+   
+    margin: 0;
 }
 
 #Smallorangerectangle {
